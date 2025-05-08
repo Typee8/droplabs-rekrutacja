@@ -70,13 +70,15 @@ const Products: React.FC = () => {
     fetchData();
   }, []);
 
-  return (
+  return productsList.length === 0 ? (
+    "Loading"
+  ) : (
     <Page>
       <Navbar />
       <Title>Our Travel Packages</Title>
       <Grid>
         {productsList.map((product) => (
-          <Link key={product.id} to="/product-details">
+          <Link key={product.id} to={`/product-details/${product.id}`}>
             <Card>
               <Image src={product.image} alt={product.title} />
               <Info>

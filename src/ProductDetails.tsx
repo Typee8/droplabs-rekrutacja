@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import BackToHomeBtn from "./BackToHomeBtn";
 import Navbar from "./Navbar";
+import type { Product } from "./types";
+import { useParams } from "react-router-dom";
+import { fetchProduct } from "./fetchAPI";
+import { useState } from "react";
 
 const Page = styled.div`
   padding: 2rem;
@@ -64,35 +68,40 @@ const Rating = styled.div`
   color: #f39c12;
 `;
 
-// Mock product data
-const product = {
-  title: "Romantic Paris Getaway",
-  description:
-    "Spend 5 unforgettable nights in the city of lights with guided tours, gourmet dining, and luxurious stays.",
-  imageUrl: "https://source.unsplash.com/800x500/?paris,eiffel",
-  price: "$1,899",
-  category: "City Trips",
-  rating: 4.5,
-};
-
 const ProductDetails: React.FC = () => {
-  return (
+  const { id } = useParams<{ id: string }>();
+  const [product, setProduct] = useState<Product>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (id) {
+        const fetchedProduct = await fetchProduct(id);
+        setProduct(fetchedProduct);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return product ? (
     <Page>
       <Navbar />
       <BackToHomeBtn />
       <Container>
-        <Image src={product.imageUrl} alt={product.title} />
+        <Image src={product.image} alt={product.title} />
         <Info>
           <div>
             <Title>{product.title}</Title>
             <Category>Category: {product.category}</Category>
             <Description>{product.description}</Description>
-            <Price>{product.price}</Price>
-            <Rating>Rating: ⭐ {product.rating} / 5</Rating>
+            <Price>{/* {product.price} */}</Price>
+            <Rating>Rating: ⭐ {/* {product.rating} */} / 5</Rating>
           </div>
         </Info>
       </Container>
     </Page>
+  ) : (
+    "Loading"
   );
 };
 
