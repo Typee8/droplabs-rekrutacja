@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Navbar from "./Navbar";
+import { Link } from "react-router-dom";
 
 const Page = styled.div`
   padding: 2rem;
@@ -108,13 +109,15 @@ const Products: React.FC = () => {
       <Title>Our Travel Packages</Title>
       <Grid>
         {products.map((product) => (
-          <Card key={product.id}>
-            <Image src={product.imageUrl} alt={product.title} />
-            <Info>
-              <ProductTitle>{product.title}</ProductTitle>
-              <Price>{product.price}</Price>
-            </Info>
-          </Card>
+          <Link to="/product-details">
+            <Card key={product.id}>
+              <Image src={product.imageUrl} alt={product.title} />
+              <Info>
+                <ProductTitle>{product.title}</ProductTitle>
+                <Price>{product.price}</Price>
+              </Info>
+            </Card>
+          </Link>
         ))}
       </Grid>
     </Page>
