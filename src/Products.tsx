@@ -17,13 +17,13 @@ const Title = styled.h1`
   margin-bottom: 2rem;
 `;
 
-const Grid = styled.div`
+const Grid = styled.ul`
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 `;
 
-const Card = styled.div`
+const Card = styled.li`
   background: white;
   border-radius: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -63,8 +63,13 @@ const Products: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const fetchedProducts = await fetchAllProducts();
-      setProductList(fetchedProducts);
+      try {
+        const fetchedProducts = await fetchAllProducts();
+        setProductList(fetchedProducts);
+      } catch {
+        alert("Nie udało się pobrać produktów");
+        setTimeout(() => window.location.reload(), 5000);
+      }
     };
 
     fetchData();
@@ -78,15 +83,15 @@ const Products: React.FC = () => {
       <Title>Our Travel Packages</Title>
       <Grid>
         {productsList.map((product) => (
-          <Link key={product.id} to={`/product-details/${product.id}`}>
-            <Card>
+          <Card key={product.id}>
+            <Link to={`/product-details/${product.id}`}>
               <Image src={product.image} alt={product.title} />
               <Info>
                 <ProductTitle>{product.title}</ProductTitle>
                 <Price>{product.price}</Price>
               </Info>
-            </Card>
-          </Link>
+            </Link>
+          </Card>
         ))}
       </Grid>
     </Page>

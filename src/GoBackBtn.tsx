@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Button = styled(Link)`
+const Button = styled.button`
   display: inline-block;
   margin: 2rem 0;
   padding: 0.75rem 1.5rem;
@@ -10,6 +10,7 @@ const Button = styled(Link)`
   color: white;
   font-weight: bold;
   text-decoration: none;
+  border: none;
   border-radius: 0.5rem;
   transition: background-color 0.2s ease-in-out;
 
@@ -18,8 +19,14 @@ const Button = styled(Link)`
   }
 `;
 
-const BackToHomeBtn: React.FC = () => {
-  return <Button to="/">← Back to Home</Button>;
+const GoBackBtn: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
+  return <Button onClick={handleGoBack}>← Go Back</Button>;
 };
 
-export default BackToHomeBtn;
+export default GoBackBtn;

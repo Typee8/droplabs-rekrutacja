@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import BackToHomeBtn from "./BackToHomeBtn";
+import GoBackBtn from "./GoBackBtn";
 import Navbar from "./Navbar";
 import type { Product } from "./types";
 import { useParams } from "react-router-dom";
 import { fetchProduct } from "./fetchAPI";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Page = styled.div`
   padding: 2rem;
@@ -71,12 +72,18 @@ const Rating = styled.div`
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       if (id) {
-        const fetchedProduct = await fetchProduct(id);
-        setProduct(fetchedProduct);
+        try {
+          const fetchedProduct = await fetchProduct(id);
+          setProduct(fetchedProduct);
+        } catch {
+          navigate("/products");
+          alert("Nie udało się pobrać produktów");
+        }
       }
     };
 
@@ -86,7 +93,7 @@ const ProductDetails: React.FC = () => {
   return product ? (
     <Page>
       <Navbar />
-      <BackToHomeBtn />
+      <GoBackBtn />
       <Container>
         <Image src={product.image} alt={product.title} />
         <Info>
@@ -94,7 +101,7 @@ const ProductDetails: React.FC = () => {
             <Title>{product.title}</Title>
             <Category>Category: {product.category}</Category>
             <Description>{product.description}</Description>
-            <Price>{/* {product.price} */}</Price>
+            <Price>{`$ ${product.price}`}</Price>
             <Rating>Rating: ⭐ {/* {product.rating} */} / 5</Rating>
           </div>
         </Info>
