@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
+import { fetchAllProducts } from "./fetchAPI";
+import type { Product } from "./types";
 
 const Page = styled.div`
   padding: 2rem;
@@ -56,62 +58,27 @@ const Price = styled.p`
   font-size: 1rem;
 `;
 
-type Product = {
-  id: number;
-  title: string;
-  imageUrl: string;
-  price: string;
-};
-
-const products: Product[] = [
-  {
-    id: 1,
-    title: "Beach Paradise in Bali",
-    imageUrl: "https://source.unsplash.com/400x300/?bali,beach",
-    price: "$1,299",
-  },
-  {
-    id: 2,
-    title: "Romantic Paris Getaway",
-    imageUrl: "https://source.unsplash.com/400x300/?paris,eiffel",
-    price: "$1,899",
-  },
-  {
-    id: 3,
-    title: "Adventure in the Swiss Alps",
-    imageUrl: "https://source.unsplash.com/400x300/?alps,mountains",
-    price: "$1,499",
-  },
-  {
-    id: 4,
-    title: "Kyoto Cultural Tour",
-    imageUrl: "https://source.unsplash.com/400x300/?kyoto,japan",
-    price: "$1,199",
-  },
-  {
-    id: 5,
-    title: "New York City Explorer",
-    imageUrl: "https://source.unsplash.com/400x300/?newyork,city",
-    price: "$999",
-  },
-  {
-    id: 6,
-    title: "Safari Adventure in Kenya",
-    imageUrl: "https://source.unsplash.com/400x300/?safari,africa",
-    price: "$2,299",
-  },
-];
-
 const Products: React.FC = () => {
+  const [productsList, setProductList] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedProducts = await fetchAllProducts();
+      setProductList(fetchedProducts);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <Page>
       <Navbar />
       <Title>Our Travel Packages</Title>
       <Grid>
-        {products.map((product) => (
-          <Link to="/product-details">
-            <Card key={product.id}>
-              <Image src={product.imageUrl} alt={product.title} />
+        {productsList.map((product) => (
+          <Link key={product.id} to="/product-details">
+            <Card>
+              <Image src={product.image} alt={product.title} />
               <Info>
                 <ProductTitle>{product.title}</ProductTitle>
                 <Price>{product.price}</Price>
