@@ -82,7 +82,7 @@ const ProductDetails: React.FC = () => {
           setProduct(fetchedProduct);
         } catch {
           navigate("/products");
-          alert("Nie udało się pobrać produktów");
+          alert("Failed to fetch products.");
         }
       }
     };

@@ -60,14 +60,18 @@ const Price = styled.p`
 
 const Products: React.FC = () => {
   const [productsList, setProductList] = useState<Product[]>([]);
+  const [productsListRender, setProductsListRender] = useState<Product[]>([]);
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [filterType, setFilterType] = useState<string>("default");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const fetchedProducts = await fetchAllProducts();
         setProductList(fetchedProducts);
+        setProductsListRender(fetchedProducts);
       } catch {
-        alert("Nie udało się pobrać produktów");
+        alert("Failed to fetch products.");
         setTimeout(() => window.location.reload(), 5000);
       }
     };
@@ -75,20 +79,60 @@ const Products: React.FC = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    let sortedProducts: Product[] = [...productsList];
+
+    if (filterType === "default") {
+      sortedProducts = [...productsList];
+    } else if (filterType === "price: ascending") {
+      sortedProducts = [...productsList].sort(
+        (product, nextProduct) => product.price - nextProduct.price
+      );
+    } else if (filterType === "price: descending") {
+      sortedProducts = [...productsList].sort(
+        (product, nextProduct) => nextProduct.price - product.price
+      );
+    }
+
+    if (searchValue.trim().length > 0) {
+      sortedProducts = sortedProducts.filter((product) =>
+        product.title.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    }
+
+    setProductsListRender(sortedProducts);
+  }, [searchValue, filterType]);
+
   return productsList.length === 0 ? (
     "Loading"
   ) : (
     <Page>
       <Navbar />
       <Title>Our Travel Packages</Title>
+      <label htmlFor="product-search">Search</label>
+      <input
+        value={searchValue}
+        onChange={(evt) => setSearchValue(evt.target.value)}
+        id="product-search"
+      ></input>
+      <label htmlFor="product-filter">Filter:</label>
+      <select
+        value={filterType}
+        onChange={(evt) => setFilterType(evt.target.value)}
+        id="product-filter"
+      >
+        <option value="default">default</option>
+        <option value="price: ascending">price: ascending</option>
+        <option value="price: descending">price: descending</option>
+      </select>
       <Grid>
-        {productsList.map((product) => (
+        {productsListRender.map((product) => (
           <Card key={product.id}>
             <Link to={`/product-details/${product.id}`}>
               <Image src={product.image} alt={product.title} />
               <Info>
                 <ProductTitle>{product.title}</ProductTitle>
-                <Price>{product.price}</Price>
+                <Price>{`$ ${product.price}`}</Price>
               </Info>
             </Link>
           </Card>
