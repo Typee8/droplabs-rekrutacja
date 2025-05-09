@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Navbar from "./Navbar";
 import LastViewedProductButton from "./LastViewedProductBtn";
 
-// Styled Components
 const Page = styled.div`
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   padding: 2rem;
@@ -62,7 +61,6 @@ const Footer = styled.footer`
   color: #777;
 `;
 
-// Component
 const HomePage: React.FC = () => {
   return (
     <Page>
