@@ -54,10 +54,9 @@ const DestinationCard = styled.div`
 
 const Footer = styled.footer`
   position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 5px;
   text-align: center;
+  width: 100vw;
   padding: 2rem 0;
   font-size: 0.9rem;
   color: #777;
