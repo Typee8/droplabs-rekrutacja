@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Navbar from "./Navbar";
+import LastViewedProductButton from "./LastViewedProductBtn";
 
 // Styled Components
 const Page = styled.div`
@@ -73,6 +74,7 @@ const HomePage: React.FC = () => {
       </Header>
 
       <Section>
+        <LastViewedProductButton />
         <SectionTitle>Popular Destinations</SectionTitle>
         <DestinationList>
           <DestinationCard>

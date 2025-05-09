@@ -80,6 +80,10 @@ const ProductDetails: React.FC = () => {
         try {
           const fetchedProduct = await fetchProduct(id);
           setProduct(fetchedProduct);
+          localStorage.setItem(
+            "lastViewedProductID",
+            JSON.stringify(fetchedProduct.id)
+          );
         } catch {
           navigate("/products");
           alert("Failed to fetch products.");
@@ -102,7 +106,9 @@ const ProductDetails: React.FC = () => {
             <Category>Category: {product.category}</Category>
             <Description>{product.description}</Description>
             <Price>{`$ ${product.price}`}</Price>
-            <Rating>Rating: ⭐ {/* {product.rating} */} / 5</Rating>
+            <Rating>
+              Rating: ⭐ {(() => Math.floor(Math.random() * 6))()} / 5
+            </Rating>
           </div>
         </Info>
       </Container>
