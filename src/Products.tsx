@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
 import { fetchAllProducts } from "./fetchAPI";
 import type { Product } from "./types";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Page = styled.div`
   padding: 2rem;
@@ -104,7 +105,7 @@ const Products: React.FC = () => {
   }, [searchValue, filterType]);
 
   return productsList.length === 0 ? (
-    "Loading"
+    <LoadingSpinner />
   ) : (
     <Page>
       <Navbar />

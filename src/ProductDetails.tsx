@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { fetchProduct } from "./fetchAPI";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Page = styled.div`
   padding: 2rem;
@@ -114,7 +115,7 @@ const ProductDetails: React.FC = () => {
       </Container>
     </Page>
   ) : (
-    "Loading"
+    <LoadingSpinner />
   );
 };
 
