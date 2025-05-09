@@ -5,7 +5,7 @@ import LastViewedProductButton from "./LastViewedProductBtn";
 
 const Page = styled.div`
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  padding: 2rem;
+  padding: 0 2rem 2rem 2rem;
   height: 100vh;
   background: linear-gradient(to bottom, #f0f9ff, #cbebff);
   color: #333;
@@ -66,32 +66,35 @@ const HomePage: React.FC = () => {
     <Page>
       <Navbar />
       <Header>
-        <Title>Wanderlust Travels</Title>
-        <Subtitle>Explore the world with unforgettable journeys</Subtitle>
+        <Title>UrbanCart</Title>
+        <Subtitle>
+          Your one-stop shop for fashion, tech, and lifestyle essentials
+        </Subtitle>
       </Header>
 
       <Section>
         <LastViewedProductButton />
-        <SectionTitle>Popular Destinations</SectionTitle>
+        <SectionTitle>Popular Picks</SectionTitle>
         <DestinationList>
           <DestinationCard>
-            <h3>Bali, Indonesia</h3>
-            <p>Experience tropical paradise and serene temples.</p>
+            <h3>Stylish Apparel</h3>
+            <p>Discover the latest trends in men's and women's fashion.</p>
           </DestinationCard>
           <DestinationCard>
-            <h3>Paris, France</h3>
-            <p>The city of lights, love, and art.</p>
+            <h3>Smart Tech</h3>
+            <p>
+              Explore cutting-edge gadgets and accessories for modern living.
+            </p>
           </DestinationCard>
           <DestinationCard>
-            <h3>Kyoto, Japan</h3>
-            <p>Discover ancient shrines and cherry blossoms.</p>
+            <h3>Home & Lifestyle</h3>
+            <p>Find everything from cozy decor to everyday essentials.</p>
           </DestinationCard>
         </DestinationList>
       </Section>
 
       <Footer>
-        &copy; {new Date().getFullYear()} Wanderlust Travels. All rights
-        reserved.
+        &copy; {new Date().getFullYear()} UrbanCart. All rights reserved.
       </Footer>
     </Page>
   );

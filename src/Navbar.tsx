@@ -37,7 +37,7 @@ const NavLink = styled(Link)`
 const Navbar: React.FC = () => {
   return (
     <Nav>
-      <Brand>Wanderlust</Brand>
+      <Brand>UrbanCart</Brand>
       <NavLinks>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/products">Products</NavLink>

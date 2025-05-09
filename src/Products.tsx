@@ -12,12 +12,6 @@ const Page = styled.div`
   min-height: 100vh;
 `;
 
-const Title = styled.h1`
-  text-align: center;
-  color: #0077b6;
-  margin-bottom: 2rem;
-`;
-
 const Grid = styled.ul`
   display: grid;
   gap: 2rem;
@@ -109,7 +103,6 @@ const Products: React.FC = () => {
   ) : (
     <Page>
       <Navbar />
-      <Title>Our Travel Packages</Title>
       <label htmlFor="product-search">Search</label>
       <input
         value={searchValue}
