@@ -24,9 +24,14 @@ const LastViewedProductButton: React.FC = () => {
   const handleClick = () => {
     const productID = localStorage.getItem("lastViewedProductID");
     if (productID) {
-      navigate(`/product-details/${JSON.parse(productID)}`);
+      navigate(`/product-details/${productID}`);
+    } else {
+      console.log("No product ID found.");
     }
   };
+
+  const productID = localStorage.getItem("lastViewedProductID");
+  if (!productID) return null;
 
   return (
     <Button onClick={handleClick}> {`← Return to Last Viewed Product`}</Button>
